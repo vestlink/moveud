@@ -1,0 +1,34 @@
+moveud 1.1.0 (26 May 2016)
+--------------------------
+*General update to ensure compatability with new R version and rebuilt in RStudio.
+*Revised move.forud() call to incorporate raster2contour() from move and force export as a polygon not a polyline (hence a SpatialPolygonsDataFrame, which is actually useful)
+
+moveud 1.0.6 (20 February 2015)
+--------------------------
+*General update to ensure compatability with new R version and rebuilt in RStudio.
+
+moveud 1.0.4 (6 February 2014)
+--------------------------
+*Modified the code in move.forud() and move.contour() so that output was written by writeOGR() not shapefile().  shapefile() code was having problem with internal paste() call to merge the path the output was to be written too.  Thanks to Tyler Pittman for identifying the error.
+
+moveud 1.0.3 (30 September 2013)
+--------------------------
+*Added function dbbmm.combined which reads in the resultant individual shapefiles created by move.forud() and merged them into one shapefile with all the attributes and projections remaining defined.
+
+moveud 1.0.2 (20 June 2013)
+--------------------------
+*Added function bbmm.polygon to allow for export of a bbmm.contour object from R package BBMM to a polygon shapefile.
+
+moveud 1.0.1 (14 April 2013)
+--------------------------
+
+CHANGES
+
+* Modified code in move.forud()  and move.contour() to allow for location.error to be either a single value or a time-step specific value which was suggested by Dustin Schornagel.
+* Modified code in move.forud()  and move.contour()  so that range.subset= value in function call is required to have length >2.
+
+moveud 1.0.0 (Dec 2012)
+--------------------------
+
+CHANGES
+* Added function that uses a for() loop:  move.forud() as move.contour stacks all the files in memory and was causing problems.

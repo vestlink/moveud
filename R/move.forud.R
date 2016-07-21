@@ -1,4 +1,4 @@
-#' For Loop creating Utilization Distribution Contours for dbbmm (Dynamic Brownian Bridge Movement Model)
+#' A For Loop creating Utilization Distribution Contours for dbbmm (Dynamic Brownian Bridge Movement Model)
 #'
 #'\code{move.forud} function that creates step utilization distribution contours based on the \code{brownian
 #'.bridge.dyn}from package move and exports the created contour lines as a \code{SpatialPolygonsDataFrame} to a #'set of shapefiles for further whatever in ArcMap (or GIS program of choice).

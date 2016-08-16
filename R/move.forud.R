@@ -54,7 +54,7 @@ move.forud=function(x, range.subset, ts, ras, le, lev, crs, path, name, ID)
     object@interest<-rep(F, nrow(object)); object@interest[i]<-T;times=object@timestamps[i];var=object@means[i];
     x.out <- brownian.bridge.dyn(object,raster=ras, time.step=ts, location.error=location.error)
     xx=raster2contour(x.out, level=lev)
-    xx=spTransform(xx, CRS=CRS('+proj=longlat +datum=WGS84'))
+    xx=spTransform(xx, CRSobj="+proj=longlat +datum=WGS84")
     xx=SpatialLines2PolySet(xx)
     xx=PolySet2SpatialPolygons(xx)
     xx=as(xx, "SpatialPolygonsDataFrame")

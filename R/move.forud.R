@@ -62,6 +62,6 @@ move.forud=function(x, range.subset, ts, ras, le, lev, crs, path, name, ID)
     xx$times=times
     xx$stepvar=var
     xx$ID=ID
-    tryCatch(writeOGR(xx, dsn=path, layer=paste(name, i, sep=""), driver="ESRI Shapefile"))
+    writeOGR(xx, dsn=path, layer=paste(name, i, sep=""), driver="ESRI Shapefile")
   }
 }

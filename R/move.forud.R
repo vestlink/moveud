@@ -42,19 +42,23 @@
 #' @author Bret A. Collier <bret@@lsu.edu>
 #' @keywords moveud
 
-move.forud=function(x, range.subset, ts, ras, le, lev, crs, path, name, ID)
-{
+move.forud=function(x, range.subset, ts, ras, le, lev, crs, path, name, ID) {
   object<-x@DBMvar
   if(length(range.subset)<2)
     stop("\nrange.subset must have length >1\n")
   if(length(le)==1) location.error=rep(c(le), nrow(object))
   if(length(le)>1)  location.error=c(le)
-  for(i in range.subset)
-  {
+
+  # calculate number of subfolders needed to house 1000 files each
+  num.subfolders <- ceiling(length(range.subset)/10000) 
+  # create in advance to which subfolder shapefiles will be written to
+  subfolder <- sprintf("/_%d", rep(1:num.subfolders, each = 10000))
+
+  for(i in range.subset) {
     object@interest<-rep(F, nrow(object)); object@interest[i]<-T;times=object@timestamps[i];var=object@means[i];
     x.out <- brownian.bridge.dyn(object,raster=ras, time.step=ts, location.error=location.error)
-    xx=contour(x.out, level=lev)
-    xx=spTransform(xx, CRSobj="+proj=longlat +ellps=WGS84")
+    xx=raster2contour(x.out, level=lev)
+    xx=spTransform(xx, CRS=CRS('+proj=longlat +datum=WGS84'))
     xx=SpatialLines2PolySet(xx)
     xx=PolySet2SpatialPolygons(xx)
     xx=as(xx, "SpatialPolygonsDataFrame")
@@ -62,6 +66,7 @@ move.forud=function(x, range.subset, ts, ras, le, lev, crs, path, name, ID)
     xx$times=times
     xx$stepvar=var
     xx$ID=ID
-    writeOGR(xx, dsn=path, layer=paste(name, i, sep=""), driver="ESRI Shapefile")
+
+    writeOGR(xx, dsn=paste(path, subfolder[i], sep = ""), layer=paste(name, i, sep=""), driver="ESRI Shapefile")
   }
 }
